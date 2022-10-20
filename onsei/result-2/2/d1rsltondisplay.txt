@@ -1,3 +1,0 @@
-> recogd data1.list > data1.result
-n1= 97
-n2= 3
