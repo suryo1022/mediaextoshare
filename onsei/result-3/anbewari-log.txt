@@ -1,0 +1,151 @@
+Hangup   
+Returnキーを押してください
+Isolated Word Recogition On-The-Fly
+rec WARN alsa: can't encode 0-bit Unknown or not applicable
+vad_file= vadwav/25248.wav
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 具合が悪い (aNbewari)= -2197.059687
+ 2. 乱暴 (dazyagu)= -2505.787315
+ 3. こんばんは (obaNdesu)= -2547.381383
+ 4. 正気でない (hozinashi)= -2558.828331
+ 5. 食べな (ke)= -2764.077465
+ 6. 怒られる (gosyagareru)= -2826.479905
+
+Hangup   
+Returnキーを押してください
+Isolated Word Recogition On-The-Fly
+rec WARN alsa: can't encode 0-bit Unknown or not applicable
+vad_file= vadwav/25292.wav
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 具合が悪い (aNbewari)= -2161.987730
+ 2. こんばんは (obaNdesu)= -2410.958014
+ 3. 食べな (ke)= -2415.857126
+ 4. 正気でない (hozinashi)= -2422.821537
+ 5. 乱暴 (dazyagu)= -2426.755885
+ 6. 怒られる (gosyagareru)= -2625.456268
+
+Hangup   
+Returnキーを押してください
+Isolated Word Recogition On-The-Fly
+rec WARN alsa: can't encode 0-bit Unknown or not applicable
+vad_file= vadwav/25309.wav
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 具合が悪い (aNbewari)= -1884.037969
+ 2. こんばんは (obaNdesu)= -2203.669733
+ 3. 正気でない (hozinashi)= -2288.662025
+ 4. 食べな (ke)= -2300.450550
+ 5. 乱暴 (dazyagu)= -2399.742401
+ 6. 怒られる (gosyagareru)= -2524.521699
+
+Hangup   
+Returnキーを押してください
+Isolated Word Recogition On-The-Fly
+rec WARN alsa: can't encode 0-bit Unknown or not applicable
+vad_file= vadwav/25325.wav
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 具合が悪い (aNbewari)= -1836.268743
+ 2. こんばんは (obaNdesu)= -2028.223181
+ 3. 正気でない (hozinashi)= -2075.190151
+ 4. 食べな (ke)= -2167.538934
+ 5. 乱暴 (dazyagu)= -2193.194264
+ 6. 怒られる (gosyagareru)= -2194.887573
+
+Hangup   
+Returnキーを押してください
+Isolated Word Recogition On-The-Fly
+rec WARN alsa: can't encode 0-bit Unknown or not applicable
+vad_file= vadwav/25353.wav
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 具合が悪い (aNbewari)= -1796.809928
+ 2. 食べな (ke)= -1956.229022
+ 3. 正気でない (hozinashi)= -2087.643112
+ 4. 乱暴 (dazyagu)= -2139.534288
+ 5. こんばんは (obaNdesu)= -2153.902191
+ 6. 怒られる (gosyagareru)= -2255.801799
+
+Hangup   
+Returnキーを押してください
+Isolated Word Recogition On-The-Fly
+rec WARN alsa: can't encode 0-bit Unknown or not applicable
+vad_file= vadwav/25375.wav
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 具合が悪い (aNbewari)= -1858.300281
+ 2. こんばんは (obaNdesu)= -2186.049562
+ 3. 食べな (ke)= -2216.192037
+ 4. 正気でない (hozinashi)= -2235.905303
+ 5. 乱暴 (dazyagu)= -2340.380926
+ 6. 怒られる (gosyagareru)= -2341.589434
+
+Hangup   
+Returnキーを押してください
+Isolated Word Recogition On-The-Fly
+rec WARN alsa: can't encode 0-bit Unknown or not applicable
+vad_file= vadwav/25394.wav
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 具合が悪い (aNbewari)= -1870.082644
+ 2. 食べな (ke)= -2184.751483
+ 3. 正気でない (hozinashi)= -2203.266911
+ 4. 乱暴 (dazyagu)= -2231.179140
+ 5. こんばんは (obaNdesu)= -2300.357900
+ 6. 怒られる (gosyagareru)= -2432.279705
+
+Hangup   
+Returnキーを押してください
+Isolated Word Recogition On-The-Fly
+rec WARN alsa: can't encode 0-bit Unknown or not applicable
+vad_file= vadwav/25593.wav
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 具合が悪い (aNbewari)= -1867.551489
+ 2. 正気でない (hozinashi)= -2301.246937
+ 3. 乱暴 (dazyagu)= -2317.203889
+ 4. 食べな (ke)= -2403.102892
+ 5. 怒られる (gosyagareru)= -2723.503999
+ 6. こんばんは (obaNdesu)= -2772.275257
+
+Hangup   
+Returnキーを押してください
+Isolated Word Recogition On-The-Fly
+rec WARN alsa: can't encode 0-bit Unknown or not applicable
+vad_file= vadwav/25611.wav
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 乱暴 (dazyagu)= -1367.239053
+ 2. 食べな (ke)= -1392.176560
+ 3. 正気でない (hozinashi)= -1429.680071
+ 4. 怒られる (gosyagareru)= -1460.160172
+ 5. こんばんは (obaNdesu)= -1476.846357
+ 6. 具合が悪い (aNbewari)= -1478.062988
+
+Hangup   
+Returnキーを押してください
+Isolated Word Recogition On-The-Fly
+rec WARN alsa: can't encode 0-bit Unknown or not applicable
+vad_file= vadwav/25641.wav
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 具合が悪い (aNbewari)= -1860.059590
+ 2. 正気でない (hozinashi)= -2086.666557
+ 3. 乱暴 (dazyagu)= -2112.935253
+ 4. 食べな (ke)= -2167.688391
+ 5. 怒られる (gosyagareru)= -2199.411850
+ 6. こんばんは (obaNdesu)= -2226.684750
+
+Hangup   

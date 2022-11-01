@@ -1,0 +1,111 @@
+Returnキーを押してくださいIsolated Word Recogition On-The-Fly
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 食べな (ke)= -1402.250925
+ 2. 乱暴 (dazyagu)= -1694.829375
+ 3. 正気でない (hozinashi)= -1712.716528
+ 4. 怒られる (gosyagareru)= -1820.506293
+ 5. 具合が悪い (aNbewari)= -2005.449950
+ 6. こんばんは (obaNdesu)= -2079.910354
+
+Returnキーを押してくださいIsolated Word Recogition On-The-Fly
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 食べな (ke)= -1540.726070
+ 2. 乱暴 (dazyagu)= -1636.514284
+ 3. 正気でない (hozinashi)= -1656.633739
+ 4. 怒られる (gosyagareru)= -1816.313787
+ 5. 具合が悪い (aNbewari)= -2026.983980
+ 6. こんばんは (obaNdesu)= -2064.100999
+
+Returnキーを押してくださいIsolated Word Recogition On-The-Fly
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 食べな (ke)= -1557.412357
+ 2. 正気でない (hozinashi)= -1573.931842
+ 3. 乱暴 (dazyagu)= -1653.614507
+ 4. 怒られる (gosyagareru)= -1735.653716
+ 5. 具合が悪い (aNbewari)= -1919.678132
+ 6. こんばんは (obaNdesu)= -2029.161540
+
+Returnキーを押してくださいIsolated Word Recogition On-The-Fly
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 食べな (ke)= -1448.303702
+ 2. 乱暴 (dazyagu)= -1636.753803
+ 3. 正気でない (hozinashi)= -1666.175685
+ 4. 怒られる (gosyagareru)= -1772.371623
+ 5. こんばんは (obaNdesu)= -1956.715177
+ 6. 具合が悪い (aNbewari)= -2038.069882
+
+Returnキーを押してくださいIsolated Word Recogition On-The-Fly
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 食べな (ke)= -1500.525160
+ 2. 乱暴 (dazyagu)= -1639.978649
+ 3. 正気でない (hozinashi)= -1719.358593
+ 4. 怒られる (gosyagareru)= -1806.145150
+ 5. 具合が悪い (aNbewari)= -1891.845081
+ 6. こんばんは (obaNdesu)= -2045.749839
+
+Returnキーを押してくださいIsolated Word Recogition On-The-Fly
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 食べな (ke)= -1450.737504
+ 2. 乱暴 (dazyagu)= -1552.723918
+ 3. 正気でない (hozinashi)= -1624.698630
+ 4. 怒られる (gosyagareru)= -1742.807003
+ 5. 具合が悪い (aNbewari)= -1811.772613
+ 6. こんばんは (obaNdesu)= -1913.308630
+
+Returnキーを押してくださいIsolated Word Recogition On-The-Fly
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 食べな (ke)= -1314.892174
+ 2. 乱暴 (dazyagu)= -1607.634201
+ 3. 正気でない (hozinashi)= -1611.608821
+ 4. 怒られる (gosyagareru)= -1684.737737
+ 5. こんばんは (obaNdesu)= -1862.370466
+ 6. 具合が悪い (aNbewari)= -1891.940977
+
+Returnキーを押してくださいIsolated Word Recogition On-The-Fly
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 食べな (ke)= -1348.860221
+ 2. 怒られる (gosyagareru)= -1541.206978
+ 3. 乱暴 (dazyagu)= -1541.948754
+ 4. 正気でない (hozinashi)= -1579.981842
+ 5. 具合が悪い (aNbewari)= -1774.202822
+ 6. こんばんは (obaNdesu)= -1820.137110
+
+Returnキーを押してくださいIsolated Word Recogition On-The-Fly
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 食べな (ke)= -1348.826797
+ 2. 乱暴 (dazyagu)= -1563.542911
+ 3. 正気でない (hozinashi)= -1633.117562
+ 4. 怒られる (gosyagareru)= -1701.632286
+ 5. 具合が悪い (aNbewari)= -1854.122485
+ 6. こんばんは (obaNdesu)= -1947.135540
+
+Returnキーを押してくださいIsolated Word Recogition On-The-Fly
+--------------------
+rank word (kana)= log-likelyhood
+--------------------
+ 1. 食べな (ke)= -1489.054531
+ 2. 乱暴 (dazyagu)= -1599.748467
+ 3. 正気でない (hozinashi)= -1626.691535
+ 4. 怒られる (gosyagareru)= -1669.744759
+ 5. 具合が悪い (aNbewari)= -1946.085425
+ 6. こんばんは (obaNdesu)= -1986.078302
+
+Returnキーを押してください
