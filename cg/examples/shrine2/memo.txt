@@ -1,0 +1,7 @@
+■コンパイル方法:
+gcc main.cpp object.cpp -lGL -lGLU -lglut -lm
+
+■実行方法
+./a.out
+
+

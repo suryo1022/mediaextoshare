@@ -1,0 +1,6 @@
+■コンパイル方法
+gcc main.c -lGL -lGLU -lglut -lm
+
+■実行方法
+./a.out
+
