@@ -1,0 +1,20 @@
+#!/bin/bash
+
+fname="list.txt"
+git config -l > $fname
+s1=`grep -E 'http.proxy=' $fname`
+s2=`grep -E 'https.proxy=' $fname`
+echo "This is "+$s1
+echo "This is "+$s2
+if [ -z $s1 ]; then
+	git config --global http.proxy http://proxy.uec.ac.jp:8080
+else
+	git config --global --unset http.proxy
+fi
+
+if [ -z $s2 ]; then
+	git config --global https.proxy http://proxy.uec.ac.jp:8080
+else
+	git config --global --unset https.proxy
+fi
+rm $fname
