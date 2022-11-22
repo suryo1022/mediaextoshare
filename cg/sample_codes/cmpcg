@@ -1,3 +1,0 @@
-#! /bin/bash
-fname=${1%.*}
-gcc -o $fname $1 -lglut -lGL -lGLU -lm
