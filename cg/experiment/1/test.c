@@ -20,10 +20,10 @@ double sky2_b = 255.0 * RGB_TRANS;
 // -------- 太陽の色 --------
 // 太陽の内側
 double sun_r = 255.0 * RGB_TRANS;
-double sun_g = 0.0 * RGB_TRANS;
+double sun_g = 200.0 * RGB_TRANS;
 double sun_b = 0.0 * RGB_TRANS;
 double sun2_r = 200.0 * RGB_TRANS;
-double sun2_g = 0.0 * RGB_TRANS;
+double sun2_g = 100.0 * RGB_TRANS;
 double sun2_b = 0.0 * RGB_TRANS;
 
 // -------- 太陽のオーラの色 --------
@@ -31,16 +31,16 @@ double sun2_b = 0.0 * RGB_TRANS;
 
 // -------- 海の色 --------
 double sea_r = 116.0 * RGB_TRANS;
-double sea_g = 80.0 * RGB_TRANS;
+double sea_g = 116.0 * RGB_TRANS;
 double sea_b = 142.0 * RGB_TRANS;
 double sea2_r = 0.0 * RGB_TRANS;
 double sea2_g = 80.0 * RGB_TRANS;
 double sea2_b = 142.0 * RGB_TRANS;
 
 // -------- 船の色 --------
-double ship_r = 150.0 * RGB_TRANS;
-double ship_g = 150.0 * RGB_TRANS;
-double ship_b = 150.0 * RGB_TRANS;
+double ship_r = 255.0 * RGB_TRANS;
+double ship_g = 255.0 * RGB_TRANS;
+double ship_b = 255.0 * RGB_TRANS;
 
 // -------- 海の上の光の色 --------
 // 定義は海の上の光を描く関数の中で
@@ -56,8 +56,8 @@ void draw_sky() {
     // ---- 実際に描く ----
     glBegin(GL_POLYGON);
         glColor3d(sky_r, sky_g, sky_b);
-        glVertex2d(1, -0.5);
-        glVertex2d(-1, -0.5);
+        glVertex2d(1, -0.3);
+        glVertex2d(-1, -0.3);
         glColor3d(sky2_r, sky2_g, sky2_b);
         glVertex2d(-1, 1);
         glVertex2d(1, 1);
@@ -172,12 +172,12 @@ void draw_ship(double x, double y) {
 // -------- 海の上の光を描く --------
 void draw_ray() {
     // ---- 色の定義 ----
-    double ray_r = (sun_r + sea_r) / 2.0;
-    double ray_g = (sun_g + sea_g) / 2.0;
-    double ray_b = (sun_b + sea_b) / 2.0;
-    double ray2_r = (sun_r + sea2_r) / 2.0;
-    double ray2_g = (sun_g + sea2_g) / 2.0;
-    double ray2_b = (sun_b + sea2_b) / 2.0;
+    double ray_r = (sun_r + sea_r*5) / 6.0;
+    double ray_g = (sun_g + sea_g*5) / 6.0;
+    double ray_b = (sun_b + sea_b*5) / 6.0;
+    double ray2_r = (sun_r + sea2_r*5) / 6.0;
+    double ray2_g = (sun_g + sea2_g*5) / 6.0;
+    double ray2_b = (sun_b + sea2_b*5) / 6.0;
 
     // ---- 実際に描く ----
     glBegin(GL_POLYGON);
@@ -223,9 +223,10 @@ void display(void) {
     draw_sun();
     draw_sea();
     draw_ray();
-    draw_ship(0.3, -0.7);
-    draw_ship(-0.4, -0.3);
+    draw_ship(-0.7, 0);
+    draw_ship(0.9, 0);
     draw_stars();
+
     glFlush();
 }
 
