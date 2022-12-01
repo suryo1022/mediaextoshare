@@ -10,5 +10,8 @@ void draw_axis();
 // -------- 緑の地面を描く --------
 void draw_ground();
 
+// -------- テクスチャのテスト用 --------
+void draw_texture();
+
 // -------- 画面への表示に関する関数 --------
 void display();

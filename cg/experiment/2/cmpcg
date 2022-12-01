@@ -1,3 +1,3 @@
 #! /bin/bash
 fname=$1
-gcc -o $fname main.c input.c display.c object.c resize.c -lglut -lGL -lGLU -lm
+gcc -o $fname main.c input.c display.c object.c resize.c texture.c -lglut -lGL -lGLU -lm
