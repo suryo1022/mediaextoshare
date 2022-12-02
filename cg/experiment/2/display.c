@@ -93,7 +93,7 @@ void display() {
     draw_ground();
 
     // ---- （テスト）立方体を描く ----
-    //draw_cube();
+    draw_cube();
 
     // ---- （テスト）座標軸を描く ----
     draw_axis();
@@ -102,13 +102,13 @@ void display() {
     draw_home_floor();
 
     // ----（テスト）テクスチャのテスト用 ----
-    //draw_texture();
+    draw_texture();
 
-    
+    //　モデルビュー変換行列の指定の後、カメラの位置、視点の位置を指定
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(camerapos[0], camerapos[1], camerapos[2], look[0], look[1], look[2], 0.0, 1.0, 0.0);
-    printf("camerapos[0] = %f, camerapos[1] = %f, look[0] = %f, look[1] = %f\n", camerapos[0], camerapos[1], look[0], look[1]);
+    printf("camerapos[0] = %f, camerapos[1] = %f, camerapos[2] = %f, look[0] = %f, look[1] = %f, look[2] = %f\n", camerapos[0], camerapos[1], camerapos[2], look[0], look[1], look[2]);
 
     // ---- 残った処理をすべて実行 ----
     glFlush();
