@@ -82,6 +82,27 @@ void draw_texture() {
 }
 
 
+// -------- 線路を描く --------
+void draw_rail() {
+    // 線路の下敷きを描く
+    int i;
+    glBegin(GL_POLYGON);
+        for(i = 0; i < 12; ++i) {
+            glColor3dv(rail_base_color);
+            glVertex3dv(rail_base_vertex[rail_base_edge[i][0]]);
+            glVertex3dv(rail_base_vertex[rail_base_edge[i][1]]);
+        }
+    glEnd();
+
+    // レールを描く
+    glBegin(GL_POLYGON);
+        for(i = 0; i < 12; ++i) {
+            glColor3dv(rail_color);
+            glVertex3dv(rail_vertex[rail_edge[i][0]]);
+            glVertex3dv(rail_vertex[rail_edge[i][1]]);
+        }
+    glEnd();
+};
 
 // -------- 画面への表示に関する関数 --------
 void display() {
@@ -104,11 +125,14 @@ void display() {
     // ----（テスト）テクスチャのテスト用 ----
     draw_texture();
 
+    // ---- 線路を描く ----
+    draw_rail();
+
     //　モデルビュー変換行列の指定の後、カメラの位置、視点の位置を指定
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(camerapos[0], camerapos[1], camerapos[2], look[0], look[1], look[2], 0.0, 1.0, 0.0);
-    printf("camerapos[0] = %f, camerapos[1] = %f, camerapos[2] = %f, look[0] = %f, look[1] = %f, look[2] = %f\n", camerapos[0], camerapos[1], camerapos[2], look[0], look[1], look[2]);
+    //printf("camerapos[0] = %f, camerapos[1] = %f, camerapos[2] = %f, look[0] = %f, look[1] = %f, look[2] = %f\n", camerapos[0], camerapos[1], camerapos[2], look[0], look[1], look[2]);
 
     // ---- 残った処理をすべて実行 ----
     glFlush();

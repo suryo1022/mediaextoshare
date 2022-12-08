@@ -1,4 +1,10 @@
-// 各オブジェクトの情報に関するヘッダファイル 
+// 各オブジェクトの情報に関するヘッダファイル
+
+// カメラの位置や視点に関する情報
+GLdouble look[3];
+GLdouble camerapos[3];
+GLdouble originlook[3];
+GLdouble origincamerapos[3];
 
 // ---- （テスト）座標軸 ----
 // 頂点座標 
@@ -44,3 +50,23 @@ GLdouble sky_texture_vertex[4][2];
 
 // （テスト）テクスチャのテスト用
 GLdouble texture_test_vertex[4][3];
+
+// ---- 線路 ----
+// 線路の下敷きの頂点座標
+GLdouble rail_base_intvl;
+GLdouble rail_base_vertex[8][3];
+
+// 線路の下敷きの辺
+int rail_base_edge[12][2];
+
+// 線路の下敷きの色情報
+GLdouble rail_base_color[3];
+
+// レールの頂点座標
+GLdouble rail_vertex[8][3];
+
+// レールの辺
+int rail_edge[12][2];
+
+// レールの色情報
+GLdouble rail_color[3];

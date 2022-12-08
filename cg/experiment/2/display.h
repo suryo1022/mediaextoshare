@@ -16,5 +16,8 @@ void draw_texture();
 // -------- 駅の床を描く --------
 void draw_home_floor();
 
+// -------- 線路を描く --------
+void draw_rail();
+
 // -------- 画面への表示に関する関数 --------
 void display();

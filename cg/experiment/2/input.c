@@ -1,13 +1,7 @@
 #include <stdio.h>
 #include <GL/glut.h>
 #include <math.h>
-
-// ---- カメラの視点、位置 ----
-//GLdouble look[3] = {15.0, 10.0, -10.0};
-GLdouble look[3] = {15.0, 10.0, -10.0};
-GLdouble camerapos[3] = {15.0, 10.0, 10.0};
-GLdouble originlook[3] = {15.0, 10.0, -10.0};
-GLdouble origincamerapos[3] = {15.0, 10.0, 10.0};
+#include "object.h"
 
 // ---- マウスの座標保存用 ----
 GLdouble mousepos[2] = {-1.0, -1.0};
@@ -58,9 +52,7 @@ void motion(int x, int y) {
         look[0] = (look[0] - camerapos[0])*cos(thetay) - (look[0] - camerapos[0])*tana * sin(thetay) + camerapos[0];
         look[1] = (look[1] - camerapos[1])*cos(thetay) + cosa*sin(thetay) + camerapos[1];
         look[2] = (look[2] - camerapos[2])*cos(thetay) - (look[2] - camerapos[2])*tana*sin(thetay) + camerapos[2];
-        //printf("look[0] = %f, look[1] = %f, look[2] = %f\n", look[0], look[1], look[2]);//
-        double norm = sqrt(pow(look[0], 2.0) + pow(look[1], 2.0) + pow(look[2], 2.0));
-        printf("norm = %f\n", norm);//
+	
         glutPostRedisplay();
     }
     mousepos[0] = x; mousepos[1] = y;
