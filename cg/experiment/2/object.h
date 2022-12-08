@@ -27,18 +27,38 @@ int cube_edge[12][2];
 GLdouble ground_vertex[4][3];
 
 
+// -------- 駅 --------
 // ---- 駅の床 ----
 // 駅の床の頂点座標
 GLdouble home_floor_vertex[8][3];
 
-// 駅の床の辺
-int home_floor_edge[12][2];
+// 駅の床の面
+int home_floor_face[6][4];
 
 // 駅の床の色情報
 GLdouble home_floor_color[1][3];
 
 // 駅の床のテクスチャ情報
 GLdouble home_floor_texture[4][2];
+
+// ---- 駅の建物 ----
+GLdouble home_building_vertex[8][3];
+
+// 駅の建物の面
+int home_building_face[6][4];
+
+// 駅の建物の色情報
+GLdouble home_building_color[3];
+
+// ---- 駅の建物の屋根 ----
+// 駅の建物の屋根の頂点情報
+GLdouble home_building_roof_vertex[5][3];
+
+// 駅の建物の屋根の面
+int home_building_roof_face[5][4];
+
+// 駅の建物の屋根の色情報
+GLdouble home_building_roof_color[3];
 
 
 // ---- 空 ----
@@ -56,17 +76,17 @@ GLdouble texture_test_vertex[4][3];
 GLdouble rail_base_intvl;
 GLdouble rail_base_vertex[8][3];
 
-// 線路の下敷きの辺
-int rail_base_edge[12][2];
+// 線路の下敷きの面
+int rail_base_face[6][4];
 
 // 線路の下敷きの色情報
 GLdouble rail_base_color[3];
 
 // レールの頂点座標
-GLdouble rail_vertex[8][3];
+GLdouble rail_vertex[16][3];
 
-// レールの辺
-int rail_edge[12][2];
+// レールの面
+int rail_face[12][4];
 
 // レールの色情報
 GLdouble rail_color[3];

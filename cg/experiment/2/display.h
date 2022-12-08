@@ -13,8 +13,13 @@ void draw_ground();
 // -------- テクスチャのテスト用 --------
 void draw_texture();
 
+// 駅を描く
 // -------- 駅の床を描く --------
 void draw_home_floor();
+// -------- 駅の建物を描く --------
+void draw_home_building();
+// ---- 駅の建物の屋根を描く ----
+void draw_home_building_roof();
 
 // -------- 線路を描く --------
 void draw_rail();

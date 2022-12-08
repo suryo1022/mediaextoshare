@@ -41,25 +41,87 @@ void draw_ground() {
     glEnd();
 }
 
+// ---------------- 駅の描画 ----------------
 // -------- 駅の床を描く --------
 void draw_home_floor() {
 
     // テクスチャマッピングができるようにしておく
     glEnable(GL_TEXTURE_2D);
 
-    // 駅の床を描く
-    int i;
-    glBegin(GL_POLYGON);
-        for(i = 0; i < 12; ++i) {
-            glColor3dv(home_floor_color[0]);
-            glVertex3dv(home_floor_vertex[home_floor_edge[i][0]]);
-            glVertex3dv(home_floor_vertex[home_floor_edge[i][1]]);
-        }
-    glEnd();
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
+
+        // 駅の床を描く
+        int i, j;
+        glBegin(GL_QUADS);
+            for(i = 0; i < 6; ++i) {
+                glColor3dv(home_floor_color[0]);
+                for(j = 0; j < 4; ++j) {
+                    glVertex3dv(home_floor_vertex[home_floor_face[i][j]]);
+                }
+            }
+        glEnd();
+
+    glDisable(GL_CULL_FACE);
 
     // テクスチャマッピング終了
     glDisable(GL_TEXTURE_2D);
 }
+
+// -------- 駅の建物を描く --------
+void draw_home_building() {
+    // テクスチャマッピングができるようにしておく
+    glEnable(GL_TEXTURE_2D);
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
+
+        // 駅の建物を描く
+        int i, j;
+        glBegin(GL_QUADS);
+            for(i = 0; i < 6; ++i) {
+                glColor3dv(home_building_color);
+                for(j = 0; j < 4; ++j) {
+                    glVertex3dv(home_building_vertex[home_building_face[i][j]]);
+                }
+            }
+        glEnd();
+
+    glDisable(GL_CULL_FACE);
+
+    // テクスチャマッピング終了
+    glDisable(GL_TEXTURE_2D);
+}
+
+// -------- 駅の建物の屋根を描く --------
+void draw_home_building_roof() {
+    // テクスチャマッピングができるようにしておく
+    glEnable(GL_TEXTURE_2D);
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
+
+        // 駅の建物の屋根を描く
+        int i, j, max;
+        glBegin(GL_TRIANGLES);
+            for(i = 0; i < 5; ++i) {
+                glColor3dv(home_building_roof_color);
+                
+                max = 3;
+                printf("max = %d\n", max);
+                
+                for(j = 0; j < max; ++j) {
+                    glVertex3dv(home_building_roof_vertex[home_building_roof_face[i][j]]);
+                }
+            }
+        glEnd();
+
+    glDisable(GL_CULL_FACE);
+
+    // テクスチャマッピング終了
+    glDisable(GL_TEXTURE_2D);
+}
+
 
 // （テスト）テクスチャマッピングのテスト
 void draw_texture() {
@@ -84,24 +146,31 @@ void draw_texture() {
 
 // -------- 線路を描く --------
 void draw_rail() {
-    // 線路の下敷きを描く
-    int i;
-    glBegin(GL_POLYGON);
-        for(i = 0; i < 12; ++i) {
-            glColor3dv(rail_base_color);
-            glVertex3dv(rail_base_vertex[rail_base_edge[i][0]]);
-            glVertex3dv(rail_base_vertex[rail_base_edge[i][1]]);
-        }
-    glEnd();
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
 
-    // レールを描く
-    glBegin(GL_POLYGON);
-        for(i = 0; i < 12; ++i) {
-            glColor3dv(rail_color);
-            glVertex3dv(rail_vertex[rail_edge[i][0]]);
-            glVertex3dv(rail_vertex[rail_edge[i][1]]);
-        }
-    glEnd();
+        // 線路の下敷きを描く
+        int i, j;
+        glBegin(GL_QUADS);
+            for(i = 0; i < 8; ++i) {
+                glColor3dv(rail_base_color);
+                for(j = 0; j < 4; ++j) {
+                    glVertex3dv(rail_base_vertex[rail_base_face[i][j]]);
+                }
+            }
+        glEnd();
+
+        // レールを描く
+        glBegin(GL_QUADS);
+            for(i = 0; i < 12; ++i) {
+                glColor3dv(rail_color);
+                for(j = 0; j < 4; ++j) {
+                    glVertex3dv(rail_vertex[rail_face[i][j]]);
+                }
+            }
+        glEnd();
+    
+    glDisable(GL_CULL_FACE);
 };
 
 // -------- 画面への表示に関する関数 --------
@@ -119,14 +188,19 @@ void display() {
     // ---- （テスト）座標軸を描く ----
     draw_axis();
 
+    // ---- 線路を描く ----
+    draw_rail();
+
+    // 駅を描く
     // ---- 駅の床を描く ----
     draw_home_floor();
+    // ---- 駅の建物を描く ----
+    draw_home_building();
+    // ---- 駅の建物の屋根を描く ----
+    draw_home_building_roof();
 
     // ----（テスト）テクスチャのテスト用 ----
     draw_texture();
-
-    // ---- 線路を描く ----
-    draw_rail();
 
     //　モデルビュー変換行列の指定の後、カメラの位置、視点の位置を指定
     glMatrixMode(GL_MODELVIEW);
