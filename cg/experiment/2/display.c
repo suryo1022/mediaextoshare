@@ -108,6 +108,7 @@ void draw_home_building_roof() {
             if(i == 0) {
                 glBegin(GL_QUADS);                
                     glColor3dv(home_building_roof_color);
+                    max = 4;
                     for(j = 0; j < max; ++j) {
                         glVertex3dv(home_building_roof_vertex[home_building_roof_face[i][j]]);
                     }
@@ -156,16 +157,21 @@ void draw_rail() {
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
 
+    int i, j, k;
         // 線路の下敷きを描く
-        int i, j;
-        glBegin(GL_QUADS);
-            for(i = 0; i < 6; ++i) {
-                glColor3dv(rail_base_color);
-                for(j = 0; j < 4; ++j) {
-                    glVertex3dv(rail_base_vertex[rail_base_face[i][j]]);
+        glTranslated(0.0, 0.0, -rail_base_intvl * (num_of_base/2));
+        for(k = 0; k < num_of_base; ++k) {
+            glBegin(GL_QUADS);
+                for(i = 0; i < 6; ++i) {
+                    glColor3dv(rail_base_color);
+                    for(j = 0; j < 4; ++j) {
+                        glVertex3dv(rail_base_vertex[rail_base_face[i][j]]);
+                    }
                 }
-            }
-        glEnd();
+            glEnd();
+            glTranslated(0.0, 0.0, rail_base_intvl);
+        }
+        glTranslated(0.0, 0.0, -rail_base_intvl * (num_of_base/2));
 
         // レールを描く
         glBegin(GL_QUADS);
@@ -182,21 +188,29 @@ void draw_rail() {
 };
 
 
-// ---- 次に描画する物体を決める（描画の順番を決める関数）----
-// ここからーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-static int decide_next_argument(int i) {
-    int arg;
-
-    if(camerapos[1] >= home_building_vertex[4][2]) {
-        return 
-    }
-    return arg;
-}
-
 
 // 各関数のポインタの配列
 // ここから間接参照によって呼び出す
-static void (*po[])() = {draw_ground, draw_cube, draw_axis, draw_rail, draw_home_building, draw_home_building_roof, draw_texture, draw_home_floor};
+static void (*po[])() = {draw_ground, draw_cube, draw_axis, draw_rail, draw_home_building_roof, draw_home_building, draw_texture, draw_home_floor};
+static int order[] = {0, 1, 2, 3, 4, 5, 6, 7};
+static int flags[] = {0};
+// 配列の中の関数を入れ替える
+static void swap(int i, int j) {
+    int l = order[i];
+    order[i] = order[j];
+    order[j] = l;
+}
+// 条件によって描画の順番を変更する
+void change_drawing_order() {
+    // 建物の屋根と本体の描画順の交換
+    // 下から屋根を見上げているときは、屋根を先に描く
+    // 一方で、上から屋根を見下ろしているときは、建物を先に描く
+    // 描画順を交換するのは、フラグが切り替わる時のみ
+    int f = ((camerapos[1] >= home_building_roof_vertex[3][1]) && (!flags[0])) || ((camerapos[1] < home_building_roof_vertex[3][1]) && (flags[0]));
+    if (f) {
+        flags[0] = !flags[0]; swap(4, 5);
+    }
+}
 
 
 // -------- 画面への表示に関する関数 --------
@@ -206,9 +220,12 @@ void display() {
     glClear(GL_COLOR_BUFFER_BIT);
 
     // テスト（定められた描画順で描画する）
+    // 条件に沿って、描画順を変更する
+    change_drawing_order();
     int i;
+    // 決められた描画順で描画関数を実行する
     for(i = 0; i < 8; ++i)
-        (*po[i])();
+        (*po[order[i]])();
 
     // ---- 地面を描く ----
     //draw_ground();

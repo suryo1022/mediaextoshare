@@ -191,8 +191,9 @@ GLdouble texture_test_vertex[4][3] = {
 
 
 // ---- 線路 ----
+GLdouble rail_base_intvl = 6.0;
+int num_of_base = 100;
 // 線路の下敷きの頂点座標
-GLdouble rail_base_intvl = 4.0;
 GLdouble rail_base_vertex[8][3] = {
     {0.0, 0.0, 0.0},
     {0.0, 0.0, 2.0},

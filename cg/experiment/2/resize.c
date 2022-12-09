@@ -14,7 +14,7 @@ void resize(int w, int h) {
     // 変換行列を単位行列にする
     glLoadIdentity();
 
-    gluPerspective(30.0, (double)w / (double)h, 1.0, 100.0);
+    gluPerspective(30.0, (double)w / (double)h, 1.0, 500.0);
 
     printf("resized\n");
 

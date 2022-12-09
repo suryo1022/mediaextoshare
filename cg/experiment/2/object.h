@@ -74,6 +74,7 @@ GLdouble texture_test_vertex[4][3];
 // ---- 線路 ----
 // 線路の下敷きの頂点座標
 GLdouble rail_base_intvl;
+int num_of_base;
 GLdouble rail_base_vertex[8][3];
 
 // 線路の下敷きの面
