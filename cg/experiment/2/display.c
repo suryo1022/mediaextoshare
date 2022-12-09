@@ -4,6 +4,7 @@
 #include "object.h"
 #include "texture.h"
 
+
 // -------- （テスト）立方体を作る --------
 void draw_cube() {
     glBegin(GL_LINES);
@@ -103,18 +104,24 @@ void draw_home_building_roof() {
 
         // 駅の建物の屋根を描く
         int i, j, max;
-        glBegin(GL_TRIANGLES);
-            for(i = 0; i < 5; ++i) {
-                glColor3dv(home_building_roof_color);
-                
-                max = 3;
-                printf("max = %d\n", max);
-                
-                for(j = 0; j < max; ++j) {
-                    glVertex3dv(home_building_roof_vertex[home_building_roof_face[i][j]]);
-                }
+        for(i = 0; i < 5; ++i) {
+            if(i == 0) {
+                glBegin(GL_QUADS);                
+                    glColor3dv(home_building_roof_color);
+                    for(j = 0; j < max; ++j) {
+                        glVertex3dv(home_building_roof_vertex[home_building_roof_face[i][j]]);
+                    }
+                glEnd();
+            } else {
+                glBegin(GL_TRIANGLES);                
+                    glColor3dv(home_building_roof_color);                    
+                    max = 3;                    
+                    for(j = 0; j < max; ++j) {
+                        glVertex3dv(home_building_roof_vertex[home_building_roof_face[i][j]]);
+                    }
+                glEnd();
             }
-        glEnd();
+        }
 
     glDisable(GL_CULL_FACE);
 
@@ -152,7 +159,7 @@ void draw_rail() {
         // 線路の下敷きを描く
         int i, j;
         glBegin(GL_QUADS);
-            for(i = 0; i < 8; ++i) {
+            for(i = 0; i < 6; ++i) {
                 glColor3dv(rail_base_color);
                 for(j = 0; j < 4; ++j) {
                     glVertex3dv(rail_base_vertex[rail_base_face[i][j]]);
@@ -169,9 +176,28 @@ void draw_rail() {
                 }
             }
         glEnd();
+        
     
     glDisable(GL_CULL_FACE);
 };
+
+
+// ---- 次に描画する物体を決める（描画の順番を決める関数）----
+// ここからーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+static int decide_next_argument(int i) {
+    int arg;
+
+    if(camerapos[1] >= home_building_vertex[4][2]) {
+        return 
+    }
+    return arg;
+}
+
+
+// 各関数のポインタの配列
+// ここから間接参照によって呼び出す
+static void (*po[])() = {draw_ground, draw_cube, draw_axis, draw_rail, draw_home_building, draw_home_building_roof, draw_texture, draw_home_floor};
+
 
 // -------- 画面への表示に関する関数 --------
 void display() {
@@ -179,28 +205,33 @@ void display() {
     glClearColor(163.0 / 255.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
+    // テスト（定められた描画順で描画する）
+    int i;
+    for(i = 0; i < 8; ++i)
+        (*po[i])();
+
     // ---- 地面を描く ----
-    draw_ground();
+    //draw_ground();
 
     // ---- （テスト）立方体を描く ----
-    draw_cube();
+    //draw_cube();
 
     // ---- （テスト）座標軸を描く ----
-    draw_axis();
+    //draw_axis();
 
     // ---- 線路を描く ----
-    draw_rail();
+    //draw_rail();
 
-    // 駅を描く
-    // ---- 駅の床を描く ----
-    draw_home_floor();
-    // ---- 駅の建物を描く ----
-    draw_home_building();
+    // 駅舎を描く
     // ---- 駅の建物の屋根を描く ----
-    draw_home_building_roof();
+    //draw_home_building_roof();
+    // ---- 駅の建物を描く ----
+    //draw_home_building();
+    // ---- 駅の床を描く ----
+    //draw_home_floor();
 
     // ----（テスト）テクスチャのテスト用 ----
-    draw_texture();
+    //draw_texture();
 
     //　モデルビュー変換行列の指定の後、カメラの位置、視点の位置を指定
     glMatrixMode(GL_MODELVIEW);

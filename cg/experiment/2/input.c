@@ -66,6 +66,7 @@ void keyboard(unsigned char key, int x, int y) {
 
     switch(key) {
 
+        // カメラをデフォルトの位置、視点に戻す
         case 'r':
             for (i = 0; i < 3; ++i) {
                 look[i] = originlook[i];
@@ -74,30 +75,49 @@ void keyboard(unsigned char key, int x, int y) {
             glutPostRedisplay();
 	    break;
 
+        // 前に進む
         case 'w':
             camerapos[2] -= dist_rate;
             look[2] -= dist_rate;
             glutPostRedisplay();
             break;
 
+        // 後ろに下がる
         case 's':
             camerapos[2] += dist_rate;
             look[2] += dist_rate;
             glutPostRedisplay();
             break;
 
+        // 右に移動する
         case 'd':
             camerapos[0] += dist_rate;
             look[0] += dist_rate;
             glutPostRedisplay();
             break;
 
+        // 左に移動する
         case 'a':
             camerapos[0] -= dist_rate;
             look[0] -= dist_rate;
             glutPostRedisplay();
             break;
 
+        // 上に行く
+        case 'f':
+            camerapos[1] += dist_rate;
+            look[1] += dist_rate;
+            glutPostRedisplay();
+            break;
+
+        // 下に下がる
+        case 'v':
+            camerapos[1] -= dist_rate;
+            look[1] -= dist_rate;
+            glutPostRedisplay();
+            break;
+
+        // プログラムを終了し、画面を閉じる
         case 'q':
         case 'Q':
         case '\033':
