@@ -22,7 +22,11 @@ GLdouble cube_vertex[8][3];
 
 int cube_edge[12][2];
 
-// ---- 緑の地面 ----
+// ---- 緑の地面 ---
+// 配置間隔
+GLdouble ground_intvl;
+// 配置数
+int ground_num;
 // 頂点座標
 GLdouble ground_vertex[4][3];
 
@@ -68,10 +72,13 @@ GLdouble sky_vertex[4][3];
 // 空のテクスチャの頂点座標
 GLdouble sky_texture_vertex[4][2];
 
-// （テスト）テクスチャのテスト用
-GLdouble texture_test_vertex[4][3];
-
 // ---- 線路 ----
+// 線路の下の石の写真の配置数
+int stone_rail_num;
+// 線路の下の石の間隔
+GLdouble stone_rail_intvl;
+// 線路の下の石の頂点座標
+GLdouble stone_rail_vertex[4][3];
 // 線路の下敷きの頂点座標
 GLdouble rail_base_intvl;
 int num_of_base;

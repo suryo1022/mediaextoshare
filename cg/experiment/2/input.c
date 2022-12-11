@@ -10,8 +10,8 @@ GLdouble mousepos[2] = {-1.0, -1.0};
 double dist_rate = 0.5;
 
 // ---- 視点の回転速度 ----
-double schange_rateyoko = 0.01;
-double schange_ratetate = 0.008;
+double schange_rateyoko = 0.005;
+double schange_ratetate = 0.005;
 
 
 // -------- マウス操作をする --------

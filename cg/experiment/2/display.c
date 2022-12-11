@@ -32,14 +32,36 @@ void draw_axis() {
 
 // -------- 緑の地面を描く --------
 void draw_ground() {
-    // 地面を描く
-    glBegin(GL_POLYGON);
-        glColor3d(0.0, 1.0, 0.0);
-        glVertex3dv(ground_vertex[0]);
-        glVertex3dv(ground_vertex[1]);
-        glVertex3dv(ground_vertex[2]);
-        glVertex3dv(ground_vertex[3]);
-    glEnd();
+    // テクスチャマッピングができるようにしておく
+    glEnable(GL_TEXTURE_2D);
+
+    int i, j;
+    //glTranslated(-ground_intvl * (ground_num/20), 0.0, -ground_intvl * (ground_num/20));
+    //for(i = 0; i < ground_num/10; ++i) {
+    //for(j = 0; j < ground_num/10; ++j) {
+	    // 地面を描く
+	    glBindTexture(GL_TEXTURE_2D, texname[1]);
+	    //glBindTexture(GL_TEXTURE_2D, texname[i%2 + 1]);
+            glBegin(GL_POLYGON);
+	        glTexCoord2d(0.0, 0.0);
+                glVertex3dv(ground_vertex[0]);
+	        glTexCoord2d(1.0, 0.0);
+                glVertex3dv(ground_vertex[1]);
+	        glTexCoord2d(1.0, 1.1);
+                glVertex3dv(ground_vertex[2]);
+	        glTexCoord2d(0.0, 1.0);
+                glVertex3dv(ground_vertex[3]);
+            glEnd();
+
+	    //glTranslated(0.0, 0.0, ground_intvl);
+	    //}
+	    //glTranslated(ground_intvl, 0.0, -ground_intvl * (ground_num/10));
+	    //}
+	    //glTranslated(-ground_intvl * (ground_num/20), 0.0, ground_intvl * (ground_num/20));
+    // テクスチャマッピング終了
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_TEXTURE_2D);
+
 }
 
 // ---------------- 駅の描画 ----------------
@@ -131,22 +153,36 @@ void draw_home_building_roof() {
 }
 
 
-// （テスト）テクスチャマッピングのテスト
-void draw_texture() {
+// -------- 線路の下の石を描く --------
+void draw_stone_rail() {
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texname[0]);
 
-    glBegin(GL_QUADS);
-        glTexCoord2d(0.0, 1.0);
-        glVertex3dv(texture_test_vertex[0]);
-        glTexCoord2d(0.0, 0.0);
-        glVertex3dv(texture_test_vertex[1]);
-        glTexCoord2d(1.0, 0.0);
-        glVertex3dv(texture_test_vertex[2]);
-        glTexCoord2d(1.0, 1.0);
-        glVertex3dv(texture_test_vertex[3]);
-    glEnd();
+    int i;
+    glTranslated(0.0, 0.0, -stone_rail_intvl * (stone_rail_num/4));
+    for (i = 0; i < stone_rail_num; ++i) {
+        glBegin(GL_QUADS);
+            glColor3d(1.0, 1.0, 1.0);
+            glTexCoord2d(0.0, 1.0);
+            glVertex3dv(stone_rail_vertex[0]);
+            glTexCoord2d(0.0, 0.0);
+            glVertex3dv(stone_rail_vertex[1]);
+            glTexCoord2d(1.0, 0.0);
+            glVertex3dv(stone_rail_vertex[2]);
+            glTexCoord2d(1.0, 1.0);
+            glVertex3dv(stone_rail_vertex[3]);
+        glEnd();
 
+	if(i < stone_rail_num/2) 
+	    glTranslated(0.0, 0.0, stone_rail_intvl);
+        else if(i == stone_rail_num/2)
+	    glTranslated(-stone_rail_intvl, 0.0, 0.0);
+	else
+	    glTranslated(0.0, 0.0, -stone_rail_intvl);
+
+    }
+
+    glTranslated(stone_rail_intvl, 0.0, stone_rail_intvl * (stone_rail_num/4));
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE_2D);
 }
@@ -191,8 +227,8 @@ void draw_rail() {
 
 // 各関数のポインタの配列
 // ここから間接参照によって呼び出す
-static void (*po[])() = {draw_ground, draw_cube, draw_axis, draw_rail, draw_home_building_roof, draw_home_building, draw_texture, draw_home_floor};
-static int order[] = {0, 1, 2, 3, 4, 5, 6, 7};
+static void (*po[])() = {draw_ground, draw_cube, draw_axis, draw_rail, draw_home_building_roof, draw_home_building, draw_home_floor, draw_stone_rail};
+static int order[] = {0, 1, 2, 7, 3, 4, 5, 6};
 static int flags[] = {0};
 // 配列の中の関数を入れ替える
 static void swap(int i, int j) {
@@ -208,7 +244,7 @@ void change_drawing_order() {
     // 描画順を交換するのは、フラグが切り替わる時のみ
     int f = ((camerapos[1] >= home_building_roof_vertex[3][1]) && (!flags[0])) || ((camerapos[1] < home_building_roof_vertex[3][1]) && (flags[0]));
     if (f) {
-        flags[0] = !flags[0]; swap(4, 5);
+        flags[0] = !flags[0]; swap(5, 6);
     }
 }
 

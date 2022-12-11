@@ -2,44 +2,65 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 
-#define TEXWIDTH1 225
-#define TEXHEIGHT1 225
-#define TEXWIDTHSKY 600
-#define TEXHEIGHTSKY 360
+#define TEXWIDTHSTONE 256
+#define TEXHEIGHTSTONE 256
+#define TEXWIDTHGRASS1 256
+#define TEXHEIGHTGRASS1 256
+#define TEXWIDTHGRASS2 256
+#define TEXHEIGHTGRASS2 256
 
 GLuint texname[2];
 
-static const char nametexturetest[] = "floor-225x225.raw";
-static const char nametexturesky[] = "sky-600x360.raw";
+static const char nametexturestone[] = "stone_rail-256x256.raw";
+static const char nametexturegrass1[] = "grass-256x256-1.raw";
+static const char nametexturegrass2[] = "grass-256x256-2.raw";
 
 
 void init_texture(void) {
-    GLubyte texturetest[TEXHEIGHT1][TEXWIDTH1][3];
-    GLubyte texturesky[TEXHEIGHTSKY][TEXWIDTHSKY][3];
+    GLubyte texturestone[TEXHEIGHTSTONE][TEXWIDTHSTONE][3];
+    GLubyte texturegrass1[TEXHEIGHTGRASS1][TEXWIDTHGRASS1][3];
+    GLubyte texturegrass2[TEXHEIGHTGRASS2][TEXWIDTHGRASS2][3];    
 
     FILE *fp;
 
-    if ((fp = fopen(nametexturetest, "rb")) != NULL) {
-        fread(texturetest, sizeof texturetest, 1, fp);
+    if ((fp = fopen(nametexturestone, "rb")) != NULL) {
+        fread(texturestone, sizeof texturestone, 1, fp);
         fclose(fp);
     } else {
-        perror(nametexturetest);
+        perror(nametexturestone);
     }
 
-    if ((fp = fopen(nametexturesky, "rb")) != NULL) {
-        fread(texturesky, sizeof texturesky, 1, fp);
+    if ((fp = fopen(nametexturegrass1, "rb")) != NULL) {
+        fread(texturegrass1, sizeof texturegrass1, 1, fp);
         fclose(fp);
     } else {
-        perror(nametexturesky);
+        perror(nametexturegrass1);
+    }
+
+    if ((fp = fopen(nametexturegrass2, "rb")) != NULL) {
+        fread(texturegrass2, sizeof texturegrass2, 1, fp);
+        fclose(fp);
+    } else {
+        perror(nametexturegrass2);
     }
 
     // テクスチャ画像はバイト単位に詰め込まれている
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
     // テスト用テクスチャのID生成
     glGenTextures(1, &texname[0]);
     glBindTexture(GL_TEXTURE_2D, texname[0]);
-    gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, TEXWIDTH1, TEXHEIGHT1, GL_RGB, GL_UNSIGNED_BYTE, texturetest);
+    gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, TEXWIDTHSTONE, TEXHEIGHTSTONE, GL_RGB, GL_UNSIGNED_BYTE, texturestone);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    glGenTextures(2, &texname[1]);
+    glBindTexture(GL_TEXTURE_2D, texname[1]);
+    gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, TEXWIDTHGRASS1, TEXHEIGHTGRASS1, GL_RGB, GL_UNSIGNED_BYTE, texturegrass1);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    glGenTextures(3, &texname[2]);
+    glBindTexture(GL_TEXTURE_2D, texname[2]);
+    gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, TEXWIDTHGRASS2, TEXHEIGHTGRASS2, GL_RGB, GL_UNSIGNED_BYTE, texturegrass2);
     glBindTexture(GL_TEXTURE_2D, 0);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

@@ -68,6 +68,10 @@ int cube_cdge[12][2] = {
 };
 
 // ---- 緑の地面 ----
+// 配置間隔
+GLdouble ground_intvl = 5.0;
+// 配置数
+int ground_num = 300;
 // 頂点座標
 GLdouble ground_vertex[4][3] = {
     {300.0, 0.0, -300.0},
@@ -181,17 +185,22 @@ GLdouble sky_texture_vertex[4][2] = {
     {1.0, 0.0},
 };
 
-// テスト用テクスチャの情報
-GLdouble texture_test_vertex[4][3] = {
-    {2.0, 19.0, -5.0},
-    {12.0, 19.0, -5.0},
-    {12.0, 9.0, -5.0},
-    {2.0, 9.0, -5.0},
-};
-
 
 // ---- 線路 ----
+// 線路の下の石の写真の配置数
+int stone_rail_num = 50;
+// 線路の下の石の間隔
+GLdouble stone_rail_intvl = 7.0;
+// 線路の下の石の頂点座標
+GLdouble stone_rail_vertex[4][3] = {
+    {0.0, 0.0, 0.0},
+    {-7.0, 0.0, 0.0},
+    {-7.0, 0.0, -7.0},
+    {0.0, 0.0, -7.0},
+};
+// 下敷きの間隔
 GLdouble rail_base_intvl = 6.0;
+// 下敷きの本数
 int num_of_base = 100;
 // 線路の下敷きの頂点座標
 GLdouble rail_base_vertex[8][3] = {
