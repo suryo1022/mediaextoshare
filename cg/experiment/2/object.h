@@ -22,6 +22,11 @@ GLdouble cube_vertex[8][3];
 
 int cube_edge[12][2];
 
+// ----テクスチャ座標（四角形）  ----
+GLdouble texture_vertex[4][2];
+// ----テクスチャ座標（三角形）  ----
+GLdouble texture_triangle_vertex[3][2];
+
 // ---- 緑の地面 ---
 // 配置間隔
 GLdouble ground_intvl;
@@ -35,22 +40,20 @@ GLdouble ground_vertex[4][3];
 // ---- 駅の床 ----
 // 駅の床の頂点座標
 GLdouble home_floor_vertex[8][3];
-
 // 駅の床の面
 int home_floor_face[6][4];
-
 // 駅の床の色情報
 GLdouble home_floor_color[1][3];
-
 // 駅の床のテクスチャ情報
 GLdouble home_floor_texture[4][2];
 
 // ---- 駅の建物 ----
+GLdouble wall_intvl;
+int wall_tate;
+int wall_yoko;
 GLdouble home_building_vertex[8][3];
-
 // 駅の建物の面
 int home_building_face[6][4];
-
 // 駅の建物の色情報
 GLdouble home_building_color[3];
 

@@ -100,19 +100,35 @@ void draw_home_building() {
     glCullFace(GL_FRONT);
 
         // 駅の建物を描く
-        int i, j;
+        int i, j, k, l;
+	glBindTexture(GL_TEXTURE_2D, texname[3]);
         glBegin(GL_QUADS);
+
             for(i = 0; i < 6; ++i) {
-                glColor3dv(home_building_color);
-                for(j = 0; j < 4; ++j) {
-                    glVertex3dv(home_building_vertex[home_building_face[i][j]]);
+	        glColor3dv(home_building_color);
+            
+                // 縦に張り合わせていく（壁一面を埋める）
+                for(j = 0; j < wall_tate; ++j) {
+                    // 横に貼り付けていく
+                    for(k = 0; k < wall_yoko; ++k) {
+                        // 正方形型のテクスチャを貼り付ける
+                        for(l = 0; l < 4; ++l) {
+                            glTexCoord2dv(texture_vertex[l]);
+                            glVertex3dv(home_building_vertex[home_building_face[i][l]]);
+                        }
+                        glTranslated(0.0, 0.0, -wall_intvl);
+                    }
+                    glTranslated(0.0, -wall_intvl, wall_intvl*wall_yoko);
                 }
+                glTranslated(0.0, wall_intvl*wall_tate, 0.0);
             }
+
         glEnd();
 
     glDisable(GL_CULL_FACE);
 
     // テクスチャマッピング終了
+    glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE_2D);
 }
 
@@ -120,6 +136,7 @@ void draw_home_building() {
 void draw_home_building_roof() {
     // テクスチャマッピングができるようにしておく
     glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texname[4]);
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
@@ -136,10 +153,11 @@ void draw_home_building_roof() {
                     }
                 glEnd();
             } else {
-                glBegin(GL_TRIANGLES);                
+                glBegin(GL_TRIANGLES);     
                     glColor3dv(home_building_roof_color);                    
                     max = 3;                    
                     for(j = 0; j < max; ++j) {
+                        glTexCoord2dv(texture_triangle_vertex[j]);
                         glVertex3dv(home_building_roof_vertex[home_building_roof_face[i][j]]);
                     }
                 glEnd();
@@ -148,6 +166,7 @@ void draw_home_building_roof() {
 
     glDisable(GL_CULL_FACE);
 
+    glBindTexture(GL_TEXTURE_2D, 0);
     // テクスチャマッピング終了
     glDisable(GL_TEXTURE_2D);
 }
