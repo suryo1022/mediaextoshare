@@ -51,7 +51,7 @@ GLdouble home_floor_texture[4][2];
 GLdouble wall_intvl;
 int wall_tate;
 int wall_yoko;
-GLdouble home_building_vertex[8][3];
+GLdouble home_building_vertex[24][3];
 // 駅の建物の面
 int home_building_face[6][4];
 // 駅の建物の色情報

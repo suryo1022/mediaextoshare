@@ -36,28 +36,29 @@ void draw_ground() {
     glEnable(GL_TEXTURE_2D);
 
     int i, j;
-    //glTranslated(-ground_intvl * (ground_num/20), 0.0, -ground_intvl * (ground_num/20));
-    //for(i = 0; i < ground_num/10; ++i) {
-    //for(j = 0; j < ground_num/10; ++j) {
+    glTranslated(-ground_intvl * (ground_num/20), 0.0, -ground_intvl * (ground_num/20));
+    for(i = 0; i < ground_num/10; ++i) {
+        for(j = 0; j < ground_num/10; ++j) {
 	    // 地面を描く
 	    glBindTexture(GL_TEXTURE_2D, texname[1]);
 	    //glBindTexture(GL_TEXTURE_2D, texname[i%2 + 1]);
-            glBegin(GL_POLYGON);
-	        glTexCoord2d(0.0, 0.0);
-                glVertex3dv(ground_vertex[0]);
-	        glTexCoord2d(1.0, 0.0);
-                glVertex3dv(ground_vertex[1]);
-	        glTexCoord2d(1.0, 1.1);
-                glVertex3dv(ground_vertex[2]);
-	        glTexCoord2d(0.0, 1.0);
-                glVertex3dv(ground_vertex[3]);
+            glBegin(GL_QUADS);
+                glColor3d(1.0, 1.0, 1.0);
+                glTexCoord2d(0.0, 0.0);
+                    glVertex3dv(ground_vertex[0]);
+                glTexCoord2d(1.0, 0.0);
+                    glVertex3dv(ground_vertex[1]);
+                glTexCoord2d(1.0, 1.1);
+                    glVertex3dv(ground_vertex[2]);
+                glTexCoord2d(0.0, 1.0);
+                    glVertex3dv(ground_vertex[3]);
             glEnd();
 
-	    //glTranslated(0.0, 0.0, ground_intvl);
-	    //}
-	    //glTranslated(ground_intvl, 0.0, -ground_intvl * (ground_num/10));
-	    //}
-	    //glTranslated(-ground_intvl * (ground_num/20), 0.0, ground_intvl * (ground_num/20));
+	        glTranslated(0.0, 0.0, ground_intvl);
+	    }
+	    glTranslated(ground_intvl, 0.0, -ground_intvl * (ground_num/10));
+	}
+	glTranslated(-ground_intvl * (ground_num/20), 0.0, ground_intvl * (ground_num/20));
     // テクスチャマッピング終了
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE_2D);
@@ -76,10 +77,13 @@ void draw_home_floor() {
 
         // 駅の床を描く
         int i, j;
+        glBindTexture(GL_TEXTURE_2D, texname[5]);
         glBegin(GL_QUADS);
             for(i = 0; i < 6; ++i) {
                 glColor3dv(home_floor_color[0]);
                 for(j = 0; j < 4; ++j) {
+                    glColor3d(1.0, 1.0, 1.0);
+                    glTexCoord2dv(texture_vertex[j]);
                     glVertex3dv(home_floor_vertex[home_floor_face[i][j]]);
                 }
             }
@@ -88,6 +92,7 @@ void draw_home_floor() {
     glDisable(GL_CULL_FACE);
 
     // テクスチャマッピング終了
+    glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE_2D);
 }
 
@@ -99,31 +104,48 @@ void draw_home_building() {
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
 
-        // 駅の建物を描く
-        int i, j, k, l;
+    // 駅の建物を描く
+    int i, j, k, l;
 	glBindTexture(GL_TEXTURE_2D, texname[3]);
-        glBegin(GL_QUADS);
 
-            for(i = 0; i < 6; ++i) {
-	        glColor3dv(home_building_color);
-            
-                // 縦に張り合わせていく（壁一面を埋める）
-                for(j = 0; j < wall_tate; ++j) {
-                    // 横に貼り付けていく
-                    for(k = 0; k < wall_yoko; ++k) {
-                        // 正方形型のテクスチャを貼り付ける
-                        for(l = 0; l < 4; ++l) {
-                            glTexCoord2dv(texture_vertex[l]);
-                            glVertex3dv(home_building_vertex[home_building_face[i][l]]);
+    // 建物の壁を作る
+    for(l = 0; l < 6; ++l) {
+        // 正方形を複製して面を作る
+        for(k = 0; k < wall_tate; ++k) {
+            for(j = 0; j < wall_yoko; ++j) {
+                // 一つの正方形を描く
+                // 窓を描くため
+                if(l != 3 && l != 4 && (k == 2 || k == 3) && (j >= 1 && j <= 3)) {
+                    // do nothing
+                } else {
+                    // 面はすべて両面にする
+                    // 裏面
+                    glBegin(GL_QUADS);
+                        for(i = 0; i < 4; ++i) {
+                            glColor3dv(home_building_color);
+                            glTexCoord2dv(texture_vertex[i]);
+                            glVertex3dv(home_building_vertex[l*4 + 3-i]);
                         }
-                        glTranslated(0.0, 0.0, -wall_intvl);
-                    }
-                    glTranslated(0.0, -wall_intvl, wall_intvl*wall_yoko);
+                    glEnd();
+                    // 表面
+                    glBegin(GL_QUADS);
+                        for(i = 0; i < 4; ++i) {
+                            glColor3dv(home_building_color);
+                            glTexCoord2dv(texture_vertex[i]);
+                            glVertex3dv(home_building_vertex[l*4 + i]);
+                        }
+                    glEnd();
                 }
-                glTranslated(0.0, wall_intvl*wall_tate, 0.0);
+                glBindTexture(GL_TEXTURE_2D, texname[3]);
+                (l == 1 || l == 2) ? glTranslated(-wall_intvl, 0.0, 0.0) : glTranslated(0.0, 0.0, wall_intvl);
             }
-
-        glEnd();
+            if(l == 0 || l == 5) glTranslated(0.0, wall_intvl, -wall_intvl*wall_yoko);
+            else if(l == 1 || l == 2) glTranslated(wall_intvl*wall_yoko, wall_intvl, 0.0);
+            else glTranslated(wall_intvl, 0.0, -wall_intvl*wall_yoko);
+        }
+        if(l == 3 || l == 4) glTranslated(-wall_intvl*wall_tate, 0.0, 0.0);
+        else glTranslated(0.0, -wall_intvl*wall_tate, 0.0);
+    }
 
     glDisable(GL_CULL_FACE);
 
@@ -247,7 +269,8 @@ void draw_rail() {
 // 各関数のポインタの配列
 // ここから間接参照によって呼び出す
 static void (*po[])() = {draw_ground, draw_cube, draw_axis, draw_rail, draw_home_building_roof, draw_home_building, draw_home_floor, draw_stone_rail};
-static int order[] = {0, 1, 2, 7, 3, 4, 5, 6};
+//static int order[] = {0, 1, 2, 7, 3, 4, 5, 6};
+static int order[] = {0, 1, 2, 3, 4, 5, 6};
 static int flags[] = {0};
 // 配列の中の関数を入れ替える
 static void swap(int i, int j) {
@@ -279,7 +302,7 @@ void display() {
     change_drawing_order();
     int i;
     // 決められた描画順で描画関数を実行する
-    for(i = 0; i < 8; ++i)
+    for(i = 0; i < 7; ++i)
         (*po[order[i]])();
 
     // ---- 地面を描く ----

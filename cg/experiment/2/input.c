@@ -11,7 +11,7 @@ double dist_rate = 0.5;
 
 // ---- 視点の回転速度 ----
 double schange_rateyoko = 0.005;
-double schange_ratetate = 0.005;
+double schange_ratetate = 0.001;
 
 
 // -------- マウス操作をする --------

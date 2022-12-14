@@ -4,22 +4,29 @@
 
 #define TEXWIDTHSTONE 256
 #define TEXHEIGHTSTONE 256
-#define TEXWIDTHGRASS1 256
-#define TEXHEIGHTGRASS1 256
+#define TEXWIDTHGRASS1 128
+#define TEXHEIGHTGRASS1 128
 #define TEXWIDTHGRASS2 256
 #define TEXHEIGHTGRASS2 256
 #define TEXWIDTHWALL1 512
 #define TEXHEIGHTWALL1 512
 #define TEXWIDTHROOF 256
 #define TEXHEIGHTROOF 256
+#define TEXWIDTHFLOOR 1024
+#define TEXHEIGHTFLOOR 1024
+#define TEXWIDTHWINDOW 512
+#define TEXHEIGHTWINDOW 512
 
-GLuint texname[5];
+GLuint texname[6];
 
 static const char nametexturestone[] = "stone_rail-256x256.raw";
-static const char nametexturegrass1[] = "grass-256x256-1.raw";
+static const char nametexturegrass1[] = "water-128x128.raw";
 static const char nametexturegrass2[] = "grass-256x256-2.raw";
 static const char nametexturewall1[] = "wall-512x512.raw";
 static const char nametextureroof[] = "roof-256x256.raw";
+static const char nametexturefloor[] = "floor-1024x1024.raw";
+static const char nametexturewindow[] = "window-512x512.raw";
+
 
 void init_texture(void) {
     GLubyte texturestone[TEXHEIGHTSTONE][TEXWIDTHSTONE][3];
@@ -27,6 +34,8 @@ void init_texture(void) {
     GLubyte texturegrass2[TEXHEIGHTGRASS2][TEXWIDTHGRASS2][3];
     GLubyte texturewall1[TEXWIDTHWALL1][TEXHEIGHTWALL1][3];
     GLubyte textureroof[TEXWIDTHROOF][TEXHEIGHTROOF][3];
+    GLubyte texturefloor[TEXWIDTHFLOOR][TEXHEIGHTFLOOR][3];
+    GLubyte texturewindow[TEXWIDTHWINDOW][TEXHEIGHTWINDOW][3];
 
     FILE *fp;
 
@@ -65,10 +74,25 @@ void init_texture(void) {
         perror(nametextureroof);
     }
 
+    if ((fp = fopen(nametexturefloor, "rb")) != NULL) {
+        fread(texturefloor, sizeof texturefloor, 1, fp);
+        fclose(fp);
+    } else {
+        perror(nametexturefloor);
+    }
+
+    if ((fp = fopen(nametexturewindow, "rb")) != NULL) {
+        fread(texturewindow, sizeof texturewindow, 1, fp);
+        fclose(fp);
+    } else {
+        perror(nametexturewindow);
+    }
+
     // テクスチャ画像はバイト単位に詰め込まれている
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
     // テスト用テクスチャのID生成
+    // いつか配列にまとめ、for文で記述したい
     glGenTextures(1, &texname[0]);
     glBindTexture(GL_TEXTURE_2D, texname[0]);
     gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, TEXWIDTHSTONE, TEXHEIGHTSTONE, GL_RGB, GL_UNSIGNED_BYTE, texturestone);
@@ -92,6 +116,16 @@ void init_texture(void) {
     glGenTextures(5, &texname[4]);
     glBindTexture(GL_TEXTURE_2D, texname[4]);
     gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, TEXWIDTHSTONE, TEXHEIGHTSTONE, GL_RGB, GL_UNSIGNED_BYTE, textureroof);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    glGenTextures(6, &texname[5]);
+    glBindTexture(GL_TEXTURE_2D, texname[5]);
+    gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, TEXWIDTHSTONE, TEXHEIGHTSTONE, GL_RGB, GL_UNSIGNED_BYTE, texturefloor);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    glGenTextures(7, &texname[6]);
+    glBindTexture(GL_TEXTURE_2D, texname[6]);
+    gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, TEXWIDTHSTONE, TEXHEIGHTSTONE, GL_RGB, GL_UNSIGNED_BYTE, texturewindow);
     glBindTexture(GL_TEXTURE_2D, 0);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
