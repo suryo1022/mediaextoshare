@@ -3,6 +3,9 @@
 // ---- 座標軸を表示するか否かのフラグ ----
 int axis_flag;
 
+// ---- 時間帯のフラグ ----
+int time_flag;
+
 // ---- カメラのの視点、位置 ----
 GLdouble look[3];
 GLdouble camerapos[3];

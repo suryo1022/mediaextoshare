@@ -60,7 +60,7 @@ GLdouble texture_triangle_vertex[3][2] = {
 // 配置間隔
 GLdouble ground_intvl = 30.0;
 // 配置数
-int ground_num = 300;
+int ground_num = 700;
 // 頂点座標
 GLdouble ground_vertex[4][3] = {
     {30.0, 0.0, -30.0},
@@ -77,7 +77,7 @@ GLdouble ground_normal[3] = {0.0, 1.0, 0.0};
 // -------- 駅 --------
 // ---- 駅の床 ----
 GLdouble home_floor_intvl = 5.0;
-int home_floor_yoko = 8;
+int home_floor_yoko = 7;
 int home_floor_tate = 30;
 // 駅の床の頂点座標
 GLdouble home_floor_vertex[12][3] = {
@@ -107,7 +107,7 @@ int home_floor_face[6][4] = {
 
 // 駅の床の色情報
 GLdouble home_floor_color[1][3] = {
-    {0.0, 0.0, 0.0},
+    {0.5, 0.5, 0.},
 };
 
 // 駅の床の法線

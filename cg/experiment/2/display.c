@@ -79,9 +79,6 @@ void draw_ground() {
 	    // 海を描く
 	    glBindTexture(GL_TEXTURE_2D, texname[1]);
 
-            // ライティングを行う
-            ////glEnable(GL_LIGHTING);
-            glEnable(GL_COLOR_MATERIAL);
 
             // 材質を設定
             glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, green);
@@ -100,9 +97,6 @@ void draw_ground() {
                 glTexCoord2d(0.0, 1.0);
                     glVertex3dv(ground_vertex[3]);
             glEnd();
-
-            glDisable(GL_COLOR_MATERIAL);
-            //glDisable(GL_LIGHTING);
 
 	        glTranslated(0.0, 0.0, ground_intvl);
 	    }
@@ -129,14 +123,12 @@ void draw_home_floor() {
 
         // 駅の床を描く
         int i, j, k, l, m;
-        glBindTexture(GL_TEXTURE_2D, texname[5]);
+        glBindTexture(GL_TEXTURE_2D, texname[3]);
 
-        // ライティングを行う
-        //glEnable(GL_LIGHTING);
-        glEnable(GL_COLOR_MATERIAL);
 
         // 材質を設定
-        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, home_floor_material);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, green);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, green);
 
         for(i = 0; i < 6; ++i) {
             // 法線を指定
@@ -165,10 +157,8 @@ void draw_home_floor() {
                     }
                 glEnd();
             }
-        }
 
-        glDisable(GL_LIGHTING);
-        glDisable(GL_COLOR_MATERIAL);
+        }
 
     glDisable(GL_CULL_FACE);
 
@@ -192,9 +182,6 @@ void draw_home_building() {
     int i, j, k, l;
 	glBindTexture(GL_TEXTURE_2D, texname[3]);
 
-    // ライティングを行う
-    //glEnable(GL_LIGHTING);
-    glEnable(GL_COLOR_MATERIAL);
 
     // 自分がいる場所によって描画の順番を変える
     int f = ((camerapos[2] < home_building_vertex[15][2]) && (!flags[1])) || ((camerapos[2] >= home_building_vertex[15][2]) && (flags[1]));
@@ -252,9 +239,6 @@ void draw_home_building() {
         else glTranslated(0.0, -wall_intvl*wall_tate, 0.0);
     }
 
-    glDisable(GL_LIGHTING);
-    glDisable(GL_COLOR_MATERIAL);
-
     glDisable(GL_CULL_FACE);
 
     // テクスチャマッピング終了
@@ -270,10 +254,6 @@ void draw_home_building_roof() {
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
-
-    // ライティングを行う
-    //glEnable(GL_LIGHTING);
-    glEnable(GL_COLOR_MATERIAL);
 
 
         // 駅の建物の屋根を描く
@@ -298,9 +278,6 @@ void draw_home_building_roof() {
                 glEnd();
             }
         }
-
-    glDisable(GL_LIGHTING);
-    glDisable(GL_COLOR_MATERIAL);
 
     glDisable(GL_CULL_FACE);
 
@@ -393,9 +370,25 @@ void draw_rail() {
 
 // -------- 画面への表示に関する関数 --------
 void display() {
-    // ---- キャンバスを青空の色で塗りつぶす ----
-    glClearColor(163.0 / 255.0, 1.0, 1.0, 1.0);
-    //glClearColor(10.0/255.0, 10.0/255.0, 10.0/255.0, 1.0);
+
+    glDisable(GL_LIGHTING);
+    glDisable(GL_COLOR_MATERIAL);
+
+    switch(time_flag) {
+        // 昼
+        case 0: 
+            glClearColor(163.0 / 255.0, 1.0, 1.0, 1.0);
+            break;        
+        // 夜
+       case 1:
+            glClearColor(0.0/255.0, 0.0/255.0, 0.0/255.0, 1.0);
+            glEnable(GL_LIGHTING);
+            glEnable(GL_COLOR_MATERIAL);
+            break;
+        default:
+            break;
+    }
+
     glClear(GL_COLOR_BUFFER_BIT);
 
     //　モデルビュー変換行列の指定の後、カメラの位置、視点の位置を指定
