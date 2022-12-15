@@ -4,6 +4,7 @@
 #include "display.h"
 #include "resize.h"
 #include "texture.h"
+#include "light.h"
 
 // -------- main関数 --------
 int main(int argc, char *argv[]) {

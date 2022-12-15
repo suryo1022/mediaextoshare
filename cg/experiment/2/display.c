@@ -3,23 +3,11 @@
 #include "input.h"
 #include "object.h"
 #include "texture.h"
+#include "light.h"
 
 
-// -------- （テスト）立方体を作る --------
-void draw_cube() {
-    glBegin(GL_LINES);
-        glColor3d(0.0, 0.0, 0.0);
-        int i;
-        for(i = 0; i < 12; ++i) {
-            glVertex3dv(cube_vertex[cube_edge[i][0]]);
-            glVertex3dv(cube_vertex[cube_edge[i][1]]);
-        }
-    glEnd();
-}
-
-// -------- （テスト）座標軸を描く --------
+// -------- 座標軸を描く --------
 void draw_axis() {
-    
     int i;
     for(i = 0; i < 3; ++i) {
         glBegin(GL_LINES);
@@ -30,20 +18,44 @@ void draw_axis() {
     }    
 }
 
-// -------- 緑の地面を描く --------
+
+// -------- 海を描く --------
 void draw_ground() {
     // テクスチャマッピングができるようにしておく
     glEnable(GL_TEXTURE_2D);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
 
     int i, j;
     glTranslated(-ground_intvl * (ground_num/20), 0.0, -ground_intvl * (ground_num/20));
     for(i = 0; i < ground_num/10; ++i) {
         for(j = 0; j < ground_num/10; ++j) {
-	    // 地面を描く
+	    // 海を描く
 	    glBindTexture(GL_TEXTURE_2D, texname[1]);
-	    //glBindTexture(GL_TEXTURE_2D, texname[i%2 + 1]);
+
+            glEnable(GL_LIGHT0);
+            glLightfv(GL_LIGHT0, GL_POSITION, light0pos);
+            // ライティングを行う
+            //glEnable(GL_LIGHTING);
+            glEnable(GL_COLOR_MATERIAL);
+            //glLightfv(GL_LIGHT0, GL_DIFFUSE, light0Diffuse);
+            //glLightfv(GL_LIGHT0, GL_AMBIENT, light0Ambient);
+            //glLightfv(GL_LIGHT0, GL_SPECULAR, light0Specular);
+            //glEnable(GL_LIGHT1);
+            //glLightfv(GL_LIGHT1, GL_POSITION, light1pos);
+            //glLightfv(GL_LIGHT1, GL_DIFFUSE, light0Diffuse);
+            //glLightfv(GL_LIGHT1, GL_AMBIENT, light0Ambient);
+            //glLightfv(GL_LIGHT1, GL_SPECULAR, light0Specular);
+
+            // 材質を設定
+            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, ground_material);
+            glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, ground_material);
+            //glMaterialf(GL_FRONT_AND_BACK, GL_EMISSION, (1.0, 1.0, 1.0, 1.0));
+
             glBegin(GL_QUADS);
-                glColor3d(1.0, 1.0, 1.0);
+                // 法線を与える
+                glNormal3dv(ground_normal);
+                //glColor3d(0.0, 1.0, 1.0);
                 glTexCoord2d(0.0, 0.0);
                     glVertex3dv(ground_vertex[0]);
                 glTexCoord2d(1.0, 0.0);
@@ -52,6 +64,9 @@ void draw_ground() {
                     glVertex3dv(ground_vertex[2]);
                 glTexCoord2d(0.0, 1.0);
                     glVertex3dv(ground_vertex[3]);
+
+                glDisable(GL_COLOR_MATERIAL);
+                glDisable(GL_LIGHTING);
             glEnd();
 
 	        glTranslated(0.0, 0.0, ground_intvl);
@@ -60,6 +75,8 @@ void draw_ground() {
 	}
 	glTranslated(-ground_intvl * (ground_num/20), 0.0, ground_intvl * (ground_num/20));
     // テクスチャマッピング終了
+
+    glDisable(GL_CULL_FACE);
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE_2D);
 
@@ -76,18 +93,45 @@ void draw_home_floor() {
     glCullFace(GL_FRONT);
 
         // 駅の床を描く
-        int i, j;
+        int i, j, k, l, m;
         glBindTexture(GL_TEXTURE_2D, texname[5]);
-        glBegin(GL_QUADS);
-            for(i = 0; i < 6; ++i) {
-                glColor3dv(home_floor_color[0]);
+
+        // ライティングを行う
+        glEnable(GL_LIGHTING);
+        glLightfv(GL_LIGHT0, GL_POSITION, light0pos);
+        glLightfv(GL_LIGHT0, GL_SPECULAR, light0Specular);
+        // 材質を設定
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, home_floor_material);
+        for(i = 0; i < 6; ++i) {
+            //glColor3dv(home_floor_color[0]);
+            if(i == 0) {
+                //glPushMatrix();
+                for(k = 0; k < home_floor_tate; ++k) {
+                    //glPushMatrix();
+                    for(l = 0; l < home_floor_yoko; ++l) {
+                        glNormal3dv(home_floor_normal);
+                        glBegin(GL_QUADS);
+                            for(m = 0; m < 4; ++m) {
+                                glTexCoord2dv(texture_vertex[m]);
+                                glVertex3dv(home_floor_vertex[m+8]);
+                            }
+                        glEnd();
+                        glTranslated(home_floor_intvl, 0.0, 0.0);
+                    }
+                    //glPopMatrix();
+                    glTranslated(-home_floor_intvl*home_floor_yoko, 0.0, home_floor_intvl);
+                }
+                glTranslated(0.0, 0.0, -home_floor_intvl*(home_floor_tate+1));
+                //glPopMatrix();
+            } else {
                 for(j = 0; j < 4; ++j) {
-                    glColor3d(1.0, 1.0, 1.0);
+                    //glColor3d(1.0, 1.0, 1.0);
                     glTexCoord2dv(texture_vertex[j]);
-                    glVertex3dv(home_floor_vertex[home_floor_face[i][j]]);
+                    glVertex3dv(home_floor_vertex[home_floor_face[i][j]]);                            
                 }
             }
-        glEnd();
+        }
+        glDisable(GL_LIGHTING);
 
     glDisable(GL_CULL_FACE);
 
@@ -120,9 +164,12 @@ void draw_home_building() {
                 } else {
                     // 面はすべて両面にする
                     // 裏面
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, ground_material);
                     glBegin(GL_QUADS);
                         for(i = 0; i < 4; ++i) {
-                            glColor3dv(home_building_color);
+                            // 法線を与える
+                            glNormal3dv(home_building_normal[l]);
+                            //glColor3dv(home_building_color);
                             glTexCoord2dv(texture_vertex[i]);
                             glVertex3dv(home_building_vertex[l*4 + 3-i]);
                         }
@@ -130,7 +177,9 @@ void draw_home_building() {
                     // 表面
                     glBegin(GL_QUADS);
                         for(i = 0; i < 4; ++i) {
-                            glColor3dv(home_building_color);
+                            // 法線を与える
+                            glNormal3dv(home_building_normal[l]);
+                            //glColor3dv(home_building_color);
                             glTexCoord2dv(texture_vertex[i]);
                             glVertex3dv(home_building_vertex[l*4 + i]);
                         }
@@ -268,9 +317,8 @@ void draw_rail() {
 
 // 各関数のポインタの配列
 // ここから間接参照によって呼び出す
-static void (*po[])() = {draw_ground, draw_cube, draw_axis, draw_rail, draw_home_building_roof, draw_home_building, draw_home_floor, draw_stone_rail};
-//static int order[] = {0, 1, 2, 7, 3, 4, 5, 6};
-static int order[] = {0, 1, 2, 3, 4, 5, 6};
+static void (*po[])() = {draw_ground, draw_axis, draw_rail, draw_home_building_roof, draw_home_building, draw_home_floor, draw_stone_rail};
+static int order[] = {0, 1, 2, 3, 4, 5};
 static int flags[] = {0};
 // 配列の中の関数を入れ替える
 static void swap(int i, int j) {
@@ -286,7 +334,7 @@ void change_drawing_order() {
     // 描画順を交換するのは、フラグが切り替わる時のみ
     int f = ((camerapos[1] >= home_building_roof_vertex[3][1]) && (!flags[0])) || ((camerapos[1] < home_building_roof_vertex[3][1]) && (flags[0]));
     if (f) {
-        flags[0] = !flags[0]; swap(5, 6);
+        flags[0] = !flags[0]; swap(2, 3);
     }
 }
 
@@ -295,44 +343,30 @@ void change_drawing_order() {
 void display() {
     // ---- キャンバスを青空の色で塗りつぶす ----
     glClearColor(163.0 / 255.0, 1.0, 1.0, 1.0);
+    //glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
-
-    // テスト（定められた描画順で描画する）
-    // 条件に沿って、描画順を変更する
-    change_drawing_order();
-    int i;
-    // 決められた描画順で描画関数を実行する
-    for(i = 0; i < 7; ++i)
-        (*po[order[i]])();
-
-    // ---- 地面を描く ----
-    //draw_ground();
-
-    // ---- （テスト）立方体を描く ----
-    //draw_cube();
-
-    // ---- （テスト）座標軸を描く ----
-    //draw_axis();
-
-    // ---- 線路を描く ----
-    //draw_rail();
-
-    // 駅舎を描く
-    // ---- 駅の建物の屋根を描く ----
-    //draw_home_building_roof();
-    // ---- 駅の建物を描く ----
-    //draw_home_building();
-    // ---- 駅の床を描く ----
-    //draw_home_floor();
-
-    // ----（テスト）テクスチャのテスト用 ----
-    //draw_texture();
 
     //　モデルビュー変換行列の指定の後、カメラの位置、視点の位置を指定
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(camerapos[0], camerapos[1], camerapos[2], look[0], look[1], look[2], 0.0, 1.0, 0.0);
-    //printf("camerapos[0] = %f, camerapos[1] = %f, camerapos[2] = %f, look[0] = %f, look[1] = %f, look[2] = %f\n", camerapos[0], camerapos[1], camerapos[2], look[0], look[1], look[2]);
+
+    // 光源の設定
+    // glEnable(GL_LIGHT0);
+    // glLightfv(GL_LIGHT0, GL_POSITION, light0pos);
+    // glLightfv(GL_LIGHT0, GL_DIFFUSE, light0Diffuse);
+    // glLightfv(GL_LIGHT0, GL_AMBIENT, light0Ambient);
+    // glLightfv(GL_LIGHT0, GL_SPECULAR, light0Specular);
+    //GLfloat spotDirrection[] = {0.0, -1.0, 0.0};
+    //glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spotDirrection);
+    //glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 30.0);
+
+    // 条件に沿って、描画順を変更する
+    change_drawing_order();
+    int i;
+    // 決められた描画順で描画関数を実行する
+    for(i = 0; i < 6; ++i)
+        (*po[order[i]])();
 
     // ---- 残った処理をすべて実行 ----
     glFlush();
