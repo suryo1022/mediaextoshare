@@ -36,6 +36,8 @@ int ground_num;
 GLdouble ground_vertex[4][3];
 // 海の法線
 GLdouble ground_normal[3];
+// 海の色
+GLdouble ground_color[3];
 
 
 // -------- 駅 --------
@@ -52,7 +54,7 @@ GLdouble home_floor_color[1][3];
 // 駅の床のテクスチャ情報
 GLdouble home_floor_texture[4][2];
 // 駅の床の法線
-GLdouble home_floor_normal[3];
+GLdouble home_floor_normal[6][3];
 
 // ---- 駅の建物 ----
 GLdouble wall_intvl;

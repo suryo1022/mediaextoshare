@@ -13,6 +13,9 @@ double dist_rate = 0.5;
 double schange_rateyoko = 0.005;
 double schange_ratetate = 0.001;
 
+// ---- 座標軸を表示するか否かのフラグ ----
+int axis_flag = 0;
+
 
 // -------- マウス操作をする --------
 void mouse(int button, int state, int x, int y) {
@@ -58,6 +61,22 @@ void motion(int x, int y) {
     mousepos[0] = x; mousepos[1] = y;
 }
 
+// 移動後の座標を求める
+void move(double d) {
+    double norm, theta1, theta2;
+    double d1 = look[0] - camerapos[0];
+    double d2 = look[2] - camerapos[2];
+    norm = sqrt(d1*d1 + d2*d2);
+
+    theta1 = acos(d1 / norm); theta2 = asin(d2 / norm);
+    camerapos[0] += d*cos(theta1);
+    camerapos[2] += d*sin(theta2);
+    look[0] += d*cos(theta1);
+    look[2] += d*sin(theta2);
+}
+
+
+
 // -------- キーボード操作をする --------
 void keyboard(unsigned char key, int x, int y) {
     int i;
@@ -77,18 +96,21 @@ void keyboard(unsigned char key, int x, int y) {
 
         // 前に進む
         case 'w':
-            camerapos[2] -= dist_rate;
-            look[2] -= dist_rate;
+            //camerapos[2] -= dist_rate;
+            //look[2] -= dist_rate;
+            move(sqrt(dist_rate));
             glutPostRedisplay();
             break;
 
         // 後ろに下がる
         case 's':
-            camerapos[2] += dist_rate;
-            look[2] += dist_rate;
+            //camerapos[2] += dist_rate;
+            //look[2] += dist_rate;
+            move(-sqrt(dist_rate));
             glutPostRedisplay();
             break;
 
+        /*
         // 右に移動する
         case 'd':
             camerapos[0] += dist_rate;
@@ -103,6 +125,8 @@ void keyboard(unsigned char key, int x, int y) {
             glutPostRedisplay();
             break;
 
+        */
+
         // 上に行く
         case 'f':
             camerapos[1] += dist_rate;
@@ -114,6 +138,12 @@ void keyboard(unsigned char key, int x, int y) {
         case 'v':
             camerapos[1] -= dist_rate;
             look[1] -= dist_rate;
+            glutPostRedisplay();
+            break;
+
+        // 座標軸を表示するか否かを決める
+        case 'i':
+            axis_flag = !axis_flag;
             glutPostRedisplay();
             break;
 

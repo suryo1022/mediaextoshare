@@ -1,8 +1,8 @@
 #include <GL/glut.h>
 
-GLfloat light0pos[4] = {0.0, 1.0, 0.0, 1.0};
+GLfloat light0pos[4] = {40.0, 20.0, 0.0, 1.0};
 GLfloat light0Diffuse[4] = {1.0, 1.0, 1.0, 1.0};
-GLfloat light0Ambient[4] = {0.0, 0.0, 0.0, 1.0};
+GLfloat light0Ambient[4] = {1.0, 1.0, 1.0, 1.0};
 GLfloat light0Specular[4] = {1.0, 1.0, 1.0, 1.0};
 GLfloat light1pos[4] = {5.0, 30.0, 00.0, 1.0};
 GLfloat green[4] = {0.0, 1.0, 0.0, 1.0};
